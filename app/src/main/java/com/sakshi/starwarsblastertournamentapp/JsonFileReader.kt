@@ -12,14 +12,11 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 object JsonFileReader {
-    val playerIdPointsHashMap = mutableMapOf<Int, Int>()
-    val playerIdScoresHashMap = mutableMapOf<Int, Int>()
 
     val playerWithMatchesHashMap = mutableMapOf<Int, ArrayList<StarWarsMatchesItem>>()
 
     val playerWithPointsHashMap = mutableMapOf<Int, PlayerWithPoints>()
 
-    val playerIDWithNameHasMap = mutableMapOf<Int, String>()
     val playersList = emptyList<Pair<Int, PlayerWithPoints>>().toMutableList()
 
     fun readStarWarsMatchesJsonFileFromAssets(
@@ -41,29 +38,15 @@ object JsonFileReader {
                     val model = gson.fromJson(item, StarWarsMatchesItem::class.java)
 
                     if (model.player1.score > model.player2.score) {
-                        val currentPoints = playerIdPointsHashMap[model.player1.id] ?: 0
-                        playerIdPointsHashMap[model.player1.id] =
-                            currentPoints + 3
-
                         val points = playerWithPointsHashMap[model.player1.id]?.points ?: 0
                         playerWithPointsHashMap[model.player1.id]?.points = points + 3
 
                     } else if (model.player2.score > model.player1.score) {
-                        val currentPoints = playerIdPointsHashMap[model.player2.id] ?: 0
-                        playerIdPointsHashMap[model.player2.id] =
-                            currentPoints + 3
 
                         val points = playerWithPointsHashMap[model.player2.id]?.points ?: 0
                         playerWithPointsHashMap[model.player2.id]?.points = points + 3
 
                     } else if (model.player1.score == model.player2.score) {
-                        val currentPointsP1 = playerIdPointsHashMap[model.player1.id] ?: 0
-                        val currentPointsP2 = playerIdPointsHashMap[model.player2.id] ?: 0
-                        playerIdPointsHashMap[model.player1.id] =
-                            currentPointsP1 + 1
-
-                        playerIdPointsHashMap[model.player2.id] =
-                            currentPointsP2 + 1
 
                         val pointsP1 = playerWithPointsHashMap[model.player1.id]?.points ?: 0
                         playerWithPointsHashMap[model.player1.id]?.points = pointsP1 + 1
@@ -82,23 +65,14 @@ object JsonFileReader {
                     listP2.add(model)
                     playerWithMatchesHashMap[model.player2.id] = listP2
 
-                    val currentScoreP1 = playerIdPointsHashMap[model.player1.id] ?: 0
-                    val currentScoreP2 = playerIdPointsHashMap[model.player2.id] ?: 0
+                    val currentScoreP1 = playerWithPointsHashMap[model.player1.id]?.score ?: 0
+                    val currentScoreP2 = playerWithPointsHashMap[model.player2.id]?.score ?: 0
 
-                    playerIdScoresHashMap[model.player1.id] =
+                    playerWithPointsHashMap[model.player1.id]?.score =
                         currentScoreP1 + model.player1.score
 
-                    playerIdScoresHashMap[model.player2.id] =
+                    playerWithPointsHashMap[model.player2.id]?.score =
                         currentScoreP2 + model.player2.score
-
-
-                    playerIdScoresHashMap[model.player1.id]?.let {
-                        playerWithPointsHashMap[model.player1.id]?.score = it
-                    }
-
-                    playerIdScoresHashMap[model.player2.id]?.let {
-                        playerWithPointsHashMap[model.player2.id]?.score = it
-                    }
 
                 }
 
@@ -139,7 +113,6 @@ object JsonFileReader {
                     playerWithPointsHashMap[model.id] =
                         PlayerWithPoints(player = model)
 
-                    playerIDWithNameHasMap[model.id] = model.name
                 }
             }
 

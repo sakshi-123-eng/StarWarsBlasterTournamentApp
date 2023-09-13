@@ -57,8 +57,8 @@ class MatchesListAdapter() :
 
     fun bind(viewBinding: MatchesItemLayoutBinding, item: StarWarsMatchesItem, position: Int) {
         viewBinding.apply {
-            nameP1.text = JsonFileReader.playerIDWithNameHasMap[item.player1.id]
-            nameP2.text = JsonFileReader.playerIDWithNameHasMap[item.player2.id]
+            nameP1.text = JsonFileReader.playerWithPointsHashMap[item.player1.id]?.player?.name
+            nameP2.text = JsonFileReader.playerWithPointsHashMap[item.player2.id]?.player?.name
 
             score.text = "${item.player1.score} - ${item.player2.score}"
 

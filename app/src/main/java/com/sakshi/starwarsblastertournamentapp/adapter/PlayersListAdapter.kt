@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.starwarsblastertournamentapp.databinding.PlayersItemLayoutBinding
 import com.sakshi.starwarsblastertournamentapp.loadImage
 import com.sakshi.starwarsblastertournamentapp.models.PlayerWithPoints
+import com.sakshi.starwarsblastertournamentapp.JsonFileReader
 
 class PlayersListAdapter() :
     androidx.recyclerview.widget.ListAdapter<Pair<Int, PlayerWithPoints>, PlayersListAdapter.PlayersViewHolder>(
