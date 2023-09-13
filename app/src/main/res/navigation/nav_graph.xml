@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/playersListFragment">
+
+
+    <fragment
+        android:id="@+id/playersListFragment"
+        android:name="com.sakshi.starwarsblastertournamentapp.PlayersWithScoreFragment"
+        android:label="playersListFragment"
+        tools:layout="@layout/fragment_players_with_score" />
+
+    <fragment
+        android:id="@+id/playersDashBoard"
+        android:name="com.sakshi.starwarsblastertournamentapp.PlayersDashBoard"
+        android:label="PlayersDashBoard"
+        tools:layout="@layout/fragment_players_dash_board" />
+
+</navigation>
